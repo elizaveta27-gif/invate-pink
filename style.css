@@ -574,7 +574,8 @@
             .watercolor-program-section { padding: 68px 24px 76px; }
             .watercolor-program-section::before { top:0px; left: 0px; width: 220px; }
             .watercolor-program-section::after { right: 0px; bottom: 0px; width: 210px; }
-            .watercolor-program-title { margin-bottom: 47px; font-size: clamp(2.8rem, 13vw, 4.35rem); }
+            /* Keep the schedule in the same visual scale as the surrounding mobile sections. */
+            .watercolor-program-title { margin-bottom: 42px; font-size: clamp(2.25rem, 10vw, 3.25rem); }
             .watercolor-program-list { display: grid; grid-template-columns: 1fr; gap: 27px; min-height: 0; padding-left: 34px; }
             .watercolor-program-list::before { display: none; }
             .watercolor-program-item { min-height: 84px; }
@@ -600,8 +601,8 @@
                 text-align: left;
                 transform: none;
             }
-            .watercolor-program-time { font-size: 2.35rem; }
-            .watercolor-program-label { margin-top: 4px; font-size: 1.48rem; }
+            .watercolor-program-time { font-size: 2.05rem; }
+            .watercolor-program-label { margin-top: 4px; font-size: 1.3rem; }
         }
 
         @media (max-width: 680px) and (prefers-reduced-motion: no-preference) {
