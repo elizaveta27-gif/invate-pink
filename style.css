@@ -1,0 +1,946 @@
+        :root {
+            --watercolor-paper: #fffdf9;
+            --watercolor-mist: #f1e3df;
+            --watercolor-blush: #d6aaa4;
+            --watercolor-ink: #735d50;
+            --watercolor-leaf: #657467;
+            --watercolor-line: rgba(167, 123, 102, .52);
+        }
+
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            min-width: 320px;
+            background: var(--watercolor-mist);
+            color: var(--watercolor-ink);
+        }
+
+        /* invite.html оставляет технологический отступ для старых шаблонов;
+           акварельный макет начинается сразу от края окна. */
+        body:has(.watercolor-hero) { padding-top: 0 !important; }
+
+        .watercolor-hero {
+            position: relative;
+            isolation: isolate;
+            display: grid;
+            min-height: 100svh;
+            place-items: center;
+            overflow: hidden;
+            padding: 34px 20px;
+            background: #fbf7f2;
+        }
+
+        .watercolor-hero::before,
+        .watercolor-hero::after {
+            position: absolute;
+            z-index: 0;
+            width: 690px;
+            height: 620px;
+            pointer-events: none;
+            border-radius: 43% 57% 64% 36% / 48% 41% 59% 52%;
+            content: '';
+            filter: blur(33px);
+            will-change: transform;
+        }
+
+        .watercolor-hero::before {
+            top: -330px;
+            left: -390px;
+            background: radial-gradient(ellipse at 58% 64%, #cbd4bd90 0%, #dbe1cc80 25%, #e4e8d680 43%, #edf0e330 58%, transparent 72%);
+            animation: watercolor-sage-drift 26s ease-in-out infinite alternate;
+        }
+
+        .watercolor-hero::after {
+            right: -355px;
+            bottom: -340px;
+            background: radial-gradient(ellipse at 40% 35%, #d7a89f99 0%, #e7bdb280 27%, #efd2c860 47%, transparent 71%);
+            animation: watercolor-rose-drift 30s ease-in-out infinite alternate;
+        }
+
+        .watercolor-brand,
+        .watercolor-card {
+            z-index: 1;
+        }
+
+        .watercolor-brand {
+            position: absolute;
+            top: 28px;
+            left: 32px;
+            color: rgba(115, 93, 80, .72);
+            font: 500 12px/1 Manrope, sans-serif;
+            letter-spacing: .18em;
+            text-decoration: none;
+        }
+
+        .watercolor-card {
+            position: relative;
+            width: min(100%, 640px);
+            aspect-ratio: 2 / 3;
+            background: transparent;
+        }
+
+        /* Рамка из референса сохраняет исходные пропорции на любом экране. */
+        .watercolor-page-frame {
+            position: absolute;
+            z-index: 1;
+            inset: 0;
+            pointer-events: none;
+            background: url('./images/frame.png') center / contain no-repeat;
+        }
+
+        .watercolor-content {
+            position: absolute;
+            z-index: 2;
+            inset: 23% 15% 17%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transform: translateY(-16px);
+        }
+
+        .watercolor-kicker {
+            margin: 0 0 8px;
+            color: #9e7767;
+            font: 400 clamp(1.85rem, 5.2vw, 2.7rem)/.9 'Great Vibes', cursive;
+        }
+
+        .watercolor-title {
+            max-width: 270px;
+            margin: 0 0 19px;
+            color: #71594b;
+            font: 500 clamp(.74rem, 1.8vw, .95rem)/1.45 Manrope, sans-serif;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        .watercolor-ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 26px auto 30px;
+            color: #b68275;
+        }
+
+        .watercolor-ornament::before,
+        .watercolor-ornament::after {
+            width: 42px;
+            height: 1px;
+            background: currentColor;
+            content: '';
+            opacity: .65;
+        }
+
+        .watercolor-ornament span { font-size: 15px; transform: rotate(45deg); }
+
+        .watercolor-dear {
+            margin: 0 0 9px;
+            color: #8e6c5e;
+            font: 400 clamp(1.8rem, 6vw, 2.5rem)/1 'Great Vibes', cursive;
+        }
+
+        .watercolor-invitation {
+            max-width: 255px;
+            margin: 0 auto 26px;
+            color: rgba(92, 76, 66, .84);
+            font: 400 11px/1.75 Manrope, sans-serif;
+            letter-spacing: .13em;
+            text-transform: uppercase;
+        }
+
+        .watercolor-names {
+            margin: 0 0 17px;
+            color: #76584a;
+            font: 500 clamp(2.85rem, 9vw, 4.45rem)/.84 'Cormorant Garamond', serif;
+            letter-spacing: .02em;
+            animation: watercolor-copy-arrival .9s .15s both;
+        }
+
+        .watercolor-names span,
+        .watercolor-names i { display: block; }
+        .watercolor-names i {
+            margin: 7px 0;
+            color: #bd8f80;
+            font: 400 .54em/1 'Great Vibes', cursive;
+        }
+
+        .watercolor-details {
+            margin-top: 0;
+            color: #82685a;
+        }
+
+        .watercolor-date-time {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            margin: 0;
+            font: 500 clamp(1.08rem, 3.7vw, 1.42rem)/1.2 'Cormorant Garamond', serif;
+            letter-spacing: .08em;
+            text-shadow: 0 0 8px rgba(255, 253, 249, .96), 0 0 14px rgba(255, 253, 249, .92);
+            text-transform: uppercase;
+            animation: watercolor-copy-arrival .9s .28s both;
+        }
+
+        .watercolor-date,
+        .watercolor-time { margin: 0; }
+
+        .watercolor-time { color: #9a7568; }
+
+        .watercolor-place {
+            margin: 14px 0 0;
+            font: 400 10px/1.65 Manrope, sans-serif;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .watercolor-hero-rsvp {
+            display: inline-flex;
+            min-height: 44px;
+            align-items: center;
+            justify-content: center;
+            margin-top: 19px;
+            padding: 0 21px;
+            border: 1px solid #b97870;
+            border-radius: 999px;
+            background: #bd8278;
+            box-shadow: 0 7px 14px rgba(133, 86, 74, .16);
+            color: #fffaf7;
+            font: 500 10px/1 Manrope, sans-serif;
+            letter-spacing: .09em;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: background .2s ease, box-shadow .2s ease, transform .2s ease;
+            animation: watercolor-copy-arrival .9s .4s both;
+        }
+
+        .watercolor-hero-rsvp:hover,
+        .watercolor-hero-rsvp:focus-visible {
+            background: #a96e67;
+            box-shadow: 0 9px 18px rgba(133, 86, 74, .23);
+            transform: translateY(-1px);
+        }
+
+        .watercolor-scroll-hint {
+            position: absolute;
+            z-index: 2;
+            bottom: 24px;
+            left: 50%;
+            color: rgba(115, 93, 80, .76);
+            font: 500 9px/1.2 Manrope, sans-serif;
+            letter-spacing: .13em;
+            text-decoration: none;
+            text-transform: uppercase;
+            transform: translateX(-50%);
+            transition: color .2s ease;
+        }
+
+        .watercolor-scroll-hint:hover,
+        .watercolor-scroll-hint:focus-visible { color: #8b6253; }
+
+        .watercolor-closing {
+            margin: 30px 0 0;
+            color: #aa7d70;
+            font: 400 clamp(1.65rem, 5.5vw, 2.2rem)/1 'Great Vibes', cursive;
+        }
+
+        /* ===== ЛОКАЦИЯ ===== */
+        .watercolor-venue-section {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            padding: clamp(68px, 9vw, 112px) 24px;
+            background: #fbf7f2;
+        }
+
+        .watercolor-venue-card {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: minmax(0, 1.18fr) minmax(265px, .82fr);
+            gap: clamp(34px, 6vw, 82px);
+            align-items: center;
+            width: min(100%, 1080px);
+            margin: 0 auto;
+        }
+
+        .watercolor-venue-kicker {
+            margin: 0 0 20px;
+            color: #a87d70;
+            font: 400 clamp(2rem, 5vw, 2.8rem)/.8 'Great Vibes', cursive;
+            text-align: center;
+        }
+
+        .watercolor-venue-photo {
+            position: relative;
+            aspect-ratio: 1.32 / 1;
+            margin: 0;
+            overflow: hidden;
+            border: 1px solid rgba(123, 132, 120, .32);
+            background-color: #e9ebe2;
+        }
+
+        .watercolor-venue-photo::after {
+            position: absolute;
+            inset: 12px;
+            border: 1px solid rgba(255, 249, 243, .55);
+            content: '';
+            pointer-events: none;
+        }
+
+        .watercolor-venue-photo img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(.76) contrast(.96) brightness(1.03);
+        }
+
+        .watercolor-venue-name {
+            margin: 0 0 8px;
+            color: #775e50;
+            font: 500 clamp(1.8rem, 3.8vw, 2.55rem)/1.05 'Cormorant Garamond', serif;
+        }
+
+        .watercolor-venue-address {
+            margin: 0;
+            color: #80695d;
+            font: 400 10px/1.75 Manrope, sans-serif;
+            letter-spacing: .11em;
+            text-transform: uppercase;
+        }
+
+        .watercolor-route {
+            display: inline-flex;
+            justify-content: center;
+            margin-top: 21px;
+            padding: 10px 17px;
+            border: 1px solid rgba(159, 109, 91, .48);
+            color: #8b6253;
+            font: 500 10px/1 Manrope, sans-serif;
+            letter-spacing: .08em;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .watercolor-route:hover,
+        .watercolor-route:focus-visible { background: rgba(218, 177, 163, .18); }
+
+        .watercolor-venue-summary {
+            padding: 20px 0;
+        }
+
+        .watercolor-dress-code {
+            margin-top: 35px;
+            padding-top: 27px;
+            border-top: 1px solid rgba(161, 112, 94, .33);
+        }
+
+        .watercolor-dress-title {
+            margin: 0 0 11px;
+            color: #a87d70;
+            font: 400 clamp(1.85rem, 3.8vw, 2.45rem)/.9 'Great Vibes', cursive;
+        }
+
+        .watercolor-dress-copy {
+            max-width: 330px;
+            margin: 0;
+            color: #80695d;
+            font: 400 12px/1.7 Manrope, sans-serif;
+        }
+
+        .watercolor-palette {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 13px;
+            margin-top: 22px;
+        }
+
+        .watercolor-palette button {
+            display: block;
+            width: 100%;
+            padding: 0;
+            border: 0;
+            background: none;
+            color: #80695d;
+            cursor: pointer;
+            font: 400 9px/1.35 Manrope, sans-serif;
+            text-align: center;
+        }
+
+        .watercolor-palette i {
+            display: block;
+            width: 39px;
+            height: 39px;
+            margin: 0 auto 7px;
+            border: 1px solid rgba(112, 91, 78, .14);
+            border-radius: 50%;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .watercolor-palette button:hover i,
+        .watercolor-palette button:focus-visible i {
+            box-shadow: 0 0 0 3px rgba(201, 142, 131, .22);
+            transform: scale(1.06);
+        }
+
+        .watercolor-palette button:nth-child(1) i { background: #f0e5d8; }
+        .watercolor-palette button:nth-child(2) i { background: #d9aaa8; }
+        .watercolor-palette button:nth-child(3) i { background: #b8c29e; }
+        .watercolor-palette button:nth-child(4) i { background: #8c9672; }
+
+        /* ===== ПРОГРАММА ДНЯ ===== */
+        .watercolor-program-section {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            padding: clamp(76px, 9vw, 120px) 24px clamp(82px, 10vw, 138px);
+            background:
+                radial-gradient(ellipse at 5% 100%, rgba(242, 206, 199, .42), transparent 27%),
+                radial-gradient(ellipse at 98% 2%, rgba(214, 221, 201, .38), transparent 27%),
+                #fffaf5;
+        }
+
+        .watercolor-program-section::before,
+        .watercolor-program-section::after {
+            position: absolute;
+            z-index: 0;
+            width: clamp(270px, 29vw, 430px);
+            aspect-ratio: 1;
+            background: url('./images/roses.png') center / contain no-repeat;
+            content: '';
+            opacity: .96;
+            pointer-events: none;
+        }
+
+        .watercolor-program-section::before { top: 0px; left: 5px; }
+        .watercolor-program-section::after { right: 28px; bottom: 24px; transform: rotate(180deg); }
+
+        .watercolor-program-inner {
+            position: relative;
+            z-index: 1;
+            width: min(100%, 1180px);
+            margin: 0 auto;
+        }
+
+        .watercolor-program-title {
+            margin: 0 0 clamp(54px, 7vw, 84px);
+            color: #6e4630;
+            font: 400 clamp(3rem, 7vw, 6.1rem)/.85 'Great Vibes', cursive;
+            text-align: center;
+        }
+
+        .watercolor-program-list {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            min-height: 268px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .watercolor-program-list::before {
+            position: absolute;
+            top: 50%;
+            right: 7.5%;
+            left: 7.5%;
+            height: 1px;
+            background: #ba8b4f;
+            content: '';
+        }
+
+        .watercolor-program-item {
+            position: relative;
+            min-width: 0;
+        }
+
+        .watercolor-program-marker {
+            position: absolute;
+            z-index: 1;
+            top: calc(50% - 7px);
+            left: 50%;
+            width: 14px;
+            height: 14px;
+            border: 0.5px solid #c18377;
+            border-radius: 50%;
+            background: #e0a29c;
+            transform: translateX(-50%);
+        }
+
+        .watercolor-program-item::before {
+            position: absolute;
+            left: 50%;
+            width: 1.5px;
+            height: 60px;
+            background: #ba8b4f;
+            content: '';
+            transform: translateX(-50%);
+        }
+
+        .watercolor-program-item:nth-child(odd)::before { top: calc(50% - 60px); }
+        .watercolor-program-item:nth-child(even)::before { top: calc(50% + 7px); }
+
+        .watercolor-program-copy {
+            position: absolute;
+            left: 50%;
+            width: min(100%, 215px);
+            text-align: center;
+            transform: translateX(-50%);
+        }
+
+        .watercolor-program-item:nth-child(odd) .watercolor-program-copy { bottom: calc(50% + 76px); }
+        .watercolor-program-item:nth-child(even) .watercolor-program-copy { top: calc(50% + 82px); }
+
+        .watercolor-program-time {
+            display: block;
+            color: #704424;
+            font: 500 clamp(2.15rem, 4.1vw, 3.45rem)/1 'Cormorant Garamond', serif;
+        }
+
+        .watercolor-program-label {
+            margin: 9px 0 0;
+            color: #704424;
+            font: 400 clamp(1.25rem, 2.35vw, 2.05rem)/1.1 'Cormorant Garamond', serif;
+        }
+
+        @keyframes watercolor-timeline-line-horizontal {
+            to { transform: scaleX(1); }
+        }
+
+        @keyframes watercolor-timeline-line-vertical {
+            to { transform: scaleY(1); }
+        }
+
+        @keyframes watercolor-timeline-leader {
+            to { transform: translateX(-50%) scaleY(1); }
+        }
+
+        @keyframes watercolor-timeline-marker {
+            from { background: #fffaf5; transform: translateX(-50%) scale(.45); }
+            to { background: #e0a29c; transform: translateX(-50%) scale(1); }
+        }
+
+        @keyframes watercolor-timeline-copy {
+            from { opacity: 0; transform: translate(-50%, 14px); }
+            to { opacity: 1; transform: translate(-50%, 0); }
+        }
+
+        @media (min-width: 681px) and (prefers-reduced-motion: no-preference) {
+            .watercolor-program-section.is-timeline-ready .watercolor-program-list::before {
+                transform: scaleX(0);
+                transform-origin: left;
+            }
+
+            .watercolor-program-section.is-timeline-ready .watercolor-program-item::before {
+                transform: translateX(-50%) scaleY(0);
+                transform-origin: bottom;
+            }
+
+            .watercolor-program-section.is-timeline-ready .watercolor-program-item:nth-child(even)::before {
+                transform-origin: top;
+            }
+
+            .watercolor-program-section.is-timeline-ready .watercolor-program-marker { background: #fffaf5; transform: translateX(-50%) scale(.45); }
+            .watercolor-program-section.is-timeline-ready .watercolor-program-copy { opacity: 0; transform: translate(-50%, 14px); }
+            .watercolor-program-section.is-timeline-visible .watercolor-program-list::before { animation: watercolor-timeline-line-horizontal 1.05s .1s ease-out forwards; }
+            .watercolor-program-section.is-timeline-visible .watercolor-program-item::before { animation: watercolor-timeline-leader .32s ease-out forwards; }
+            .watercolor-program-section.is-timeline-visible .watercolor-program-marker { animation: watercolor-timeline-marker .34s ease-out forwards; }
+            .watercolor-program-section.is-timeline-visible .watercolor-program-copy { animation: watercolor-timeline-copy .5s ease-out forwards; }
+            .watercolor-program-section.is-timeline-visible .watercolor-program-item:nth-child(1)::before { animation-delay: 1.02s; }
+            .watercolor-program-section.is-timeline-visible .watercolor-program-item:nth-child(1) .watercolor-program-marker { animation-delay: 1.22s; }
+            .watercolor-program-section.is-timeline-visible .watercolor-program-item:nth-child(1) .watercolor-program-copy { animation-delay: 1.34s; }
+            .watercolor-program-section.is-timeline-visible .watercolor-program-item:nth-child(2)::before { animation-delay: 1.3s; }
+            .watercolor-program-section.is-timeline-visible .watercolor-program-item:nth-child(2) .watercolor-program-marker { animation-delay: 1.5s; }
+            .watercolor-program-section.is-timeline-visible .watercolor-program-item:nth-child(2) .watercolor-program-copy { animation-delay: 1.62s; }
+            .watercolor-program-section.is-timeline-visible .watercolor-program-item:nth-child(3)::before { animation-delay: 1.58s; }
+            .watercolor-program-section.is-timeline-visible .watercolor-program-item:nth-child(3) .watercolor-program-marker { animation-delay: 1.78s; }
+            .watercolor-program-section.is-timeline-visible .watercolor-program-item:nth-child(3) .watercolor-program-copy { animation-delay: 1.9s; }
+            .watercolor-program-section.is-timeline-visible .watercolor-program-item:nth-child(4)::before { animation-delay: 1.86s; }
+            .watercolor-program-section.is-timeline-visible .watercolor-program-item:nth-child(4) .watercolor-program-marker { animation-delay: 2.06s; }
+            .watercolor-program-section.is-timeline-visible .watercolor-program-item:nth-child(4) .watercolor-program-copy { animation-delay: 2.18s; }
+            .watercolor-program-section.is-timeline-visible .watercolor-program-item:nth-child(5)::before { animation-delay: 2.14s; }
+            .watercolor-program-section.is-timeline-visible .watercolor-program-item:nth-child(5) .watercolor-program-marker { animation-delay: 2.34s; }
+            .watercolor-program-section.is-timeline-visible .watercolor-program-item:nth-child(5) .watercolor-program-copy { animation-delay: 2.46s; }
+        }
+
+        @media (max-width: 680px) {
+            .watercolor-program-section { padding: 68px 24px 76px; }
+            .watercolor-program-section::before { top:0px; left: 0px; width: 220px; }
+            .watercolor-program-section::after { right: 0px; bottom: 0px; width: 210px; }
+            .watercolor-program-title { margin-bottom: 47px; font-size: clamp(2.8rem, 13vw, 4.35rem); }
+            .watercolor-program-list { display: grid; grid-template-columns: 1fr; gap: 27px; min-height: 0; padding-left: 34px; }
+            .watercolor-program-list::before { display: none; }
+            .watercolor-program-item { min-height: 84px; }
+            .watercolor-program-item::before {
+                top: 15px !important;
+                bottom: -27px;
+                left: 0;
+                width: 1.5px;
+                height: auto;
+                transform: none;
+            }
+            .watercolor-program-item:last-child::before { display: none; }
+            .watercolor-program-marker { top: 1px; left: 0; transform: translateX(-50%); }
+            .watercolor-program-copy,
+            .watercolor-program-item:nth-child(odd) .watercolor-program-copy,
+            .watercolor-program-item:nth-child(even) .watercolor-program-copy {
+                position: relative;
+                top: auto;
+                bottom: auto;
+                left: auto;
+                width: auto;
+                padding-left: 28px;
+                text-align: left;
+                transform: none;
+            }
+            .watercolor-program-time { font-size: 2.35rem; }
+            .watercolor-program-label { margin-top: 4px; font-size: 1.48rem; }
+        }
+
+        @media (max-width: 680px) and (prefers-reduced-motion: no-preference) {
+            .watercolor-program-item.is-timeline-visible::before { animation: watercolor-timeline-line-vertical .34s ease-out forwards; transform-origin: top; }
+            .watercolor-program-item.is-timeline-visible .watercolor-program-marker { animation: watercolor-timeline-marker .34s .18s ease-out forwards; }
+            .watercolor-program-item.is-timeline-visible .watercolor-program-copy { animation: watercolor-timeline-copy-mobile .46s .3s ease-out forwards; }
+        }
+
+        @keyframes watercolor-timeline-copy-mobile {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== ДЕТАЛИ И ФИНАЛЬНОЕ ОБРАЩЕНИЕ ===== */
+        .watercolor-details-section {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            padding: clamp(62px, 8vw, 106px) 24px;
+            background: #faf7f2;
+        }
+
+        .watercolor-details-section::before,
+        .watercolor-details-section::after {
+            position: absolute;
+            z-index: 0;
+            width: 610px;
+            height: 550px;
+            pointer-events: none;
+            border-radius: 43% 57% 64% 36% / 48% 41% 59% 52%;
+            content: '';
+            filter: blur(40px);
+        }
+
+        .watercolor-details-section::before {
+            top: -290px;
+            left: -325px;
+            background: radial-gradient(ellipse at 58% 64%, #d4dac880 0%, #e3e7d980 35%, transparent 72%);
+        }
+
+        .watercolor-details-section::after {
+            right: -310px;
+            bottom: -300px;
+            background: radial-gradient(ellipse at 40% 35%, #d7a89f80 0%, #e7bdb270 30%, #efd2c850 50%, transparent 72%);
+        }
+
+        .watercolor-details-layout {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: minmax(280px, .96fr) minmax(280px, .8fr);
+            gap: clamp(38px, 7vw, 98px);
+            align-items: center;
+            width: min(100%, 1040px);
+            margin: 0 auto;
+        }
+
+        .watercolor-details-photo {
+            position: relative;
+            aspect-ratio: 1 / 1.05;
+            margin: 0;
+            overflow: hidden;
+            border: 1px solid rgba(137, 108, 92, .2);
+            background: #e9ddd3;
+        }
+
+        .watercolor-details-photo::before {
+            position: absolute;
+            z-index: 1;
+            inset: 14px;
+            border: 1px solid rgba(255, 250, 245, .72);
+            content: '';
+            pointer-events: none;
+        }
+
+        .watercolor-details-photo img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            filter: saturate(.78) contrast(.96) brightness(1.04);
+            transition: transform .25s ease;
+        }
+
+        .watercolor-details-copy {
+            max-width: 372px;
+            padding: 20px 0 20px clamp(24px, 4vw, 48px);
+            border-left: 1px solid rgba(165, 115, 98, .32);
+            text-align: center;
+        }
+
+        .watercolor-rsvp-kicker,
+        .watercolor-welcome-title {
+            margin: 0;
+            color: #a87d70;
+            font: 400 clamp(2.25rem, 4.5vw, 3.1rem)/.85 'Great Vibes', cursive;
+        }
+
+        .watercolor-rsvp-copy {
+            max-width: 29ch;
+            margin: 18px auto 23px;
+            color: #80695d;
+            font: 400 13px/1.75 Manrope, sans-serif;
+        }
+
+        .watercolor-rsvp-form {
+            display: grid;
+            gap: 13px;
+            max-width: 322px;
+            margin: 0 auto;
+            color: #80695d;
+            font: 400 12px/1.4 Manrope, sans-serif;
+            text-align: left;
+        }
+
+        .watercolor-rsvp-form > label,
+        .watercolor-rsvp-form legend { color: #89685b; }
+
+        .watercolor-rsvp-form input[type="text"] {
+            width: 100%;
+            min-height: 48px;
+            padding: 12px 14px;
+            border: 1px solid rgba(169, 121, 100, .48);
+            border-radius: 7px;
+            outline: 0;
+            background: rgba(255, 253, 249, .56);
+            color: #6e564a;
+            font: 400 13px/1.2 Manrope, sans-serif;
+        }
+
+        .watercolor-rsvp-form input[type="text"]:focus {
+            border-color: #bd8273;
+            box-shadow: 0 0 0 3px rgba(222, 178, 165, .25);
+        }
+
+        .watercolor-rsvp-options {
+            display: grid;
+            gap: 10px;
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+        .watercolor-rsvp-options legend { margin-bottom: 10px; }
+
+        .watercolor-rsvp-option {
+            display: flex;
+            min-height: 48px;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 13px;
+            border: 1px solid rgba(169, 121, 100, .35);
+            border-radius: 7px;
+            background: rgba(255, 253, 249, .5);
+            cursor: pointer;
+            transition: border-color .2s ease, background .2s ease;
+        }
+
+        .watercolor-rsvp-option:has(input:checked) {
+            border-color: #bd8278;
+            background: rgba(222, 178, 165, .25);
+        }
+
+        .watercolor-rsvp-option input {
+            width: 16px;
+            height: 16px;
+            margin: 0;
+            accent-color: #c98e83;
+        }
+
+        .watercolor-rsvp-submit {
+            min-height: 48px;
+            margin-top: 6px;
+            padding: 12px 18px;
+            border: 0;
+            border-radius: 999px;
+            background: #bd8278;
+            color: #fffaf5;
+            cursor: pointer;
+            font: 500 12px/1 Manrope, sans-serif;
+            letter-spacing: .06em;
+        }
+
+        .watercolor-rsvp-submit:hover,
+        .watercolor-rsvp-submit:focus-visible { background: #a96e67; }
+
+        .watercolor-rsvp-message {
+            min-height: 1.3em;
+            margin: 3px 0 0;
+            color: #89685b;
+            font: 400 12px/1.45 Manrope, sans-serif;
+            text-align: center;
+        }
+
+        .watercolor-welcome-section {
+            position: relative;
+            overflow: hidden;
+            padding: clamp(54px, 6vw, 82px) 24px;
+            background:
+                radial-gradient(ellipse at 11% 100%, rgba(255,255,255,.36), transparent 32%),
+                radial-gradient(ellipse at 93% 4%, rgba(255,247,241,.52), transparent 31%),
+                linear-gradient(124deg, #eccbc5 0%, #f2d8d1 48%, #e8bdb6 100%);
+            text-align: center;
+        }
+
+        .watercolor-welcome-inner {
+            position: relative;
+            z-index: 1;
+            width: min(100%, 510px);
+            margin: 0 auto;
+        }
+
+        .watercolor-welcome-title { font-size: clamp(2.7rem, 5.7vw, 4rem); }
+
+        .watercolor-welcome-copy {
+            margin: 20px 0 0;
+            color: #865f57;
+            font: 400 11px/1.8 Manrope, sans-serif;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .watercolor-welcome-names {
+            display: block;
+            margin-top: 7px;
+            color: #75554d;
+            font: 500 1.3rem/1.2 'Cormorant Garamond', serif;
+            letter-spacing: .06em;
+        }
+
+        .watercolor-welcome-heart {
+            display: block;
+            margin-top: 14px;
+            color: #b77875;
+            font-size: 21px;
+        }
+
+        @keyframes watercolor-sage-drift {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(22px, 18px) scale(1.04); }
+        }
+
+        @keyframes watercolor-rose-drift {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(-20px, -16px) scale(1.035); }
+        }
+
+        @keyframes watercolor-copy-arrival {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes watercolor-section-reveal {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @supports (animation-timeline: view()) {
+            .watercolor-venue-card,
+            .watercolor-details-layout,
+            .watercolor-welcome-inner {
+                animation: watercolor-section-reveal linear both;
+                animation-range: entry 0% cover 28%;
+                animation-timeline: view();
+            }
+        }
+
+        @media (max-width: 560px) {
+            .watercolor-hero { padding: 55px 0 18px; }
+            .watercolor-brand { top: 18px; left: 22px; }
+            .watercolor-card { width: min(100%, 420px); }
+            .watercolor-content { inset: 25% 14% 18%; transform: translateY(-12px); }
+            .watercolor-kicker { font-size: 1.65rem; }
+            .watercolor-title { margin-bottom: 14px; font-size: .58rem; letter-spacing: .08em; }
+            .watercolor-names { margin-bottom: 12px; font-size: 2.65rem; }
+            .watercolor-names i { margin: 4px 0; }
+            .watercolor-date-time { gap: 3px 6px; font-size: .91rem; letter-spacing: .06em; }
+            .watercolor-place { margin-top: 11px; font-size: 7px; letter-spacing: .09em; }
+            .watercolor-hero-rsvp { min-height: 38px; margin-top: 14px; padding: 0 17px; font-size: 8px; }
+            .watercolor-scroll-hint { bottom: 13px; font-size: 7px; }
+            .watercolor-venue-section { padding: 58px 24px 66px; }
+            .watercolor-hero::before,
+            .watercolor-hero::after {
+                width: 470px;
+                height: 440px;
+                filter: blur(25px);
+                animation: watercolor-spot-appear 1.8s ease-out both;
+                will-change: auto;
+            }
+            .watercolor-hero::before { top: -260px; left: -310px; }
+            .watercolor-hero::after { right: -310px; bottom: -265px; }
+            .watercolor-details-section::before,
+            .watercolor-details-section::after {
+                width: 470px;
+                height: 440px;
+                filter: blur(30px);
+            }
+            .watercolor-details-section::before { top: -245px; left: -310px; }
+            .watercolor-details-section::after { right: -300px; bottom: -260px; }
+            .watercolor-venue-card { display: block; }
+            .watercolor-venue-kicker { margin-bottom: 18px; }
+            .watercolor-venue-summary { padding: 32px 0 0; text-align: center; }
+            .watercolor-venue-address { font-size: 8px; }
+            .watercolor-dress-code { margin-top: 34px; padding-top: 27px; }
+            .watercolor-dress-copy { margin-right: auto; margin-left: auto; }
+            .watercolor-palette { max-width: 330px; margin-right: auto; margin-left: auto; }
+            .watercolor-details-section { padding: 58px 24px 0; }
+            .watercolor-details-layout { display: block; }
+            .watercolor-details-photo { aspect-ratio: 1 / 1.03; }
+            .watercolor-details-copy {
+                max-width: none;
+                padding: 54px 0 68px;
+                border-top: 1px solid rgba(165, 115, 98, .32);
+                border-left: 0;
+            }
+            .watercolor-welcome-section { padding: 50px 24px 56px; }
+        }
+
+        @keyframes watercolor-spot-appear {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .watercolor-hero::before,
+            .watercolor-hero::after,
+            .watercolor-names,
+            .watercolor-date-time,
+            .watercolor-hero-rsvp,
+            .watercolor-venue-card,
+            .watercolor-details-layout,
+            .watercolor-welcome-inner {
+                animation: none;
+                will-change: auto;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+        }
+
